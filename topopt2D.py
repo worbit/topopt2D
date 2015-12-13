@@ -11,8 +11,8 @@ def main(volfrac,penal,rmin,ft,chg):
 	print("Minimum compliance problem with OC")
 
 	# load images first to automatically set nelx and nely
-	samples = ['mbb','short_cantilever','beam','bike','hook','chair']
-	folder = samples[1]+'/'
+	samples = ['mbb','short_cantilever','beam','hook','chair']
+	folder = samples[0]+'/'
 	try:
 		sup = io.imread(folder+'support.png')
 		loa = io.imread(folder+'load.png')
