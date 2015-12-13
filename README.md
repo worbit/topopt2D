@@ -15,7 +15,7 @@ A vertical load (down in y-direction) is an orange pixel, a load from left to ri
 ###Support
 For y-support, the red channel must be 255, for x-support the green channel must be 255. For both x and y, the pixel must therefore be yellow. Below is a low resolution sample for the half MBB beam example:
 
-![load example](https://github.com/worbit/topopt2D/blob/master/load.png)
+![load example](https://github.com/worbit/topopt2D/blob/master/support.png)
 
 ###Passive
 Nodes that need to be void must be red, solid ones must be green.
