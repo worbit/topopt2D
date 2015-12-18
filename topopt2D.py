@@ -105,9 +105,9 @@ def main(volfrac,penal,rmin,ft,chg):
 	fixed = []
 	for i in xrange(sup.shape[0]):
 		for j in xrange(sup.shape[1]):
-			if sup[i,j,0]>5:
+			if sup[i,j,0]>2:
 				fixed.append(2*(j*(nely+1)+i)+1)
-			if sup[i,j,1]>5:
+			if sup[i,j,1]>2:
 				fixed.append(2*(j*(nely+1)+i))
 
 	free=np.setdiff1d(dofs,fixed)
@@ -152,7 +152,6 @@ def main(volfrac,penal,rmin,ft,chg):
 		# Setup and solve FE problem
 		sK=((KE.flatten()[np.newaxis]).T*(Emin+(xPhys)**penal*(Emax-Emin))).flatten(order='F')
 		K = coo_matrix((sK,(iK,jK)),shape=(ndof,ndof)).tocsc()
-		#print 'sK:',sK.shape,'iK:',iK.shape,'jK:',jK.shape,'xPhys:',xPhys.shape
 		# Remove constrained dofs from matrix
 		K = K[free,:][:,free]
 		# Solve system
