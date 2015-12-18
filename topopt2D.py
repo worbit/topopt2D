@@ -122,16 +122,11 @@ def main(volfrac,penal,rmin,ft,chg):
 	#f[1,0]=1 # MBB beam
 	for i in xrange(loa.shape[0]):
 		for j in xrange(loa.shape[1]):
-			'''if loa[i,j,0]>5:
-				f[2*(j*(nely+1)+i)+1] = 1
-			if loa[i,j,1]>5:
-				f[2*(j*(nely+1)+i)] = 1'''
-
 			vertl = loa[i,j,0]-128
 			horil = loa[i,j,1]-128
-			if abs(vertl)>5:
+			if abs(vertl)>2:
 				f[2*(j*(nely+1)+i)+1] = vertl/128.0
-			if abs(horil)>5:
+			if abs(horil)>2:
 				f[2*(j*(nely+1)+i)] = horil/128.0
 
 	# Initialize plot and plot the initial design
