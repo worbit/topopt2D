@@ -20,4 +20,4 @@ For y-support, the red channel must be 255, for x-support the green channel must
 ![load example](https://github.com/worbit/topopt2D/blob/master/support.png)
 
 ###Passive
-Nodes that need to be void must be red, solid ones must be green.
+Nodes that need to be void must be red, solid ones must be green. The blue channel doesn't have any effect whatsoever.
