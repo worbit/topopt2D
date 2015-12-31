@@ -222,7 +222,7 @@ def oc(nelx,nely,x,volfrac,dc,dv,g):
 if __name__ == "__main__":
 	# Default input parameters
 	volfrac=0.4
-	rmin=5.4 #deeper: more branching (initial: 5.4, try 2.0!) proposal: 0.04 * nelx
+	rmin=5.4 # lower number: more branching (initial: 5.4, try 2.0 or 1.5) proposal: 0.04 * nelx
 	penal=3.0 # ensure black and white solution
 	ft=1 # ft==0 -> sensitivity filtering, ft==1 -> density filtering
 	chg=0.1
