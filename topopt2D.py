@@ -1,4 +1,5 @@
 # A 165 LINE TOPOLOGY OPTIMIZATION CODE BY NIELS AAGE AND VILLADS EGEDE JOHANSEN, JANUARY 2013
+# EXTENDED BY A COUPLE OF LINES FOR LOADING LOAD- AND SUPPORT VIA IMAGES BY MATHIAS BERNHARD, DECEMBER 2015
 from __future__ import division
 import numpy as np
 from scipy.sparse import coo_matrix
@@ -7,12 +8,12 @@ from matplotlib import colors
 import matplotlib.pyplot as plt
 from skimage import io
 # MAIN DRIVER
-def main(volfrac,penal,rmin,ft,chg):
+def main(volfrac,penal,rmin,ft,chg,fldr):
 	print("Minimum compliance problem with OC")
 
 	# load images first to automatically set nelx and nely
 	samples = ['mbb','short_cantilever','beam','hook','chair']
-	folder = samples[0]+'/'
+	folder = fldr+'/' #samples[0]+'/'
 	try:
 		sup = io.imread(folder+'support.png')
 		loa = io.imread(folder+'load.png')
@@ -223,12 +224,14 @@ if __name__ == "__main__":
 	volfrac=0.4
 	rmin=5.4 #deeper: more branching (initial: 5.4, try 2.0!) proposal: 0.04 * nelx
 	penal=3.0 # ensure black and white solution
-	ft=0 # ft==0 -> sensitivity filtering, ft==1 -> density filtering
+	ft=1 # ft==0 -> sensitivity filtering, ft==1 -> density filtering
 	chg=0.1
+	folder = 'mbb'
 	import sys
 	if len(sys.argv)>1: volfrac=float(sys.argv[1])
 	if len(sys.argv)>2: rmin   =float(sys.argv[2])
 	if len(sys.argv)>3: chg   =float(sys.argv[3])
-	if len(sys.argv)>4: penal  =float(sys.argv[4])
-	if len(sys.argv)>5: ft     =int(sys.argv[5])
-	main(volfrac,penal,rmin,ft,chg)
+	if len(sys.argv)>4: folder  =float(sys.argv[4])
+	if len(sys.argv)>5: penal  =float(sys.argv[5])
+	if len(sys.argv)>6: ft     =int(sys.argv[6])
+	main(volfrac,penal,rmin,ft,chg,folder)
