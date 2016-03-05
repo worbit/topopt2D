@@ -231,7 +231,7 @@ if __name__ == "__main__":
 	if len(sys.argv)>1: volfrac=float(sys.argv[1])
 	if len(sys.argv)>2: rmin   =float(sys.argv[2])
 	if len(sys.argv)>3: chg   =float(sys.argv[3])
-	if len(sys.argv)>4: folder  =float(sys.argv[4])
+	if len(sys.argv)>4: folder  =str(sys.argv[4])
 	if len(sys.argv)>5: penal  =float(sys.argv[5])
 	if len(sys.argv)>6: ft     =int(sys.argv[6])
 	main(volfrac,penal,rmin,ft,chg,folder)
