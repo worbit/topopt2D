@@ -1,5 +1,5 @@
 # topopt2D
-##Topology optimization using images to control load, support and passive elements
+## Topology optimization using images to control load, support and passive elements
 
 Adaptation of python code taken from here: http://www.topopt.dtu.dk/?q=node/881.
 The number of elements is not hardcoded but taken from the size of the images. The images should be the same size, the code does not test for that though.
