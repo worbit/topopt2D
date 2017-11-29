@@ -7,6 +7,8 @@ from scipy.sparse.linalg import spsolve
 from matplotlib import colors
 import matplotlib.pyplot as plt
 from skimage import io
+
+
 # MAIN DRIVER
 def main(volfrac,penal,rmin,ft,chg,fldr):
 	print("Minimum compliance problem with OC")
@@ -30,7 +32,7 @@ def main(volfrac,penal,rmin,ft,chg,fldr):
 	passive = np.zeros(nely*nelx)
 	pas = None
 	try:
-		pas = io.imread(folder+'passive.png')
+		pas = io.imread(folder+'passive_.png')
 	except Exception as e:
 		pass
 	if not pas is None:
@@ -108,8 +110,8 @@ def main(volfrac,penal,rmin,ft,chg,fldr):
 		for j in xrange(sup.shape[1]):
 			if sup[i,j,0]>2:
 				fixed.append(2*(j*(nely+1)+i)+1)
-			if sup[i,j,1]>2:
-				fixed.append(2*(j*(nely+1)+i))
+			#if sup[i,j,1]>2:
+			#	fixed.append(2*(j*(nely+1)+i))
 
 	free=np.setdiff1d(dofs,fixed)
 
@@ -178,15 +180,20 @@ def main(volfrac,penal,rmin,ft,chg,fldr):
 		change=np.linalg.norm(x.reshape(nelx*nely,1)-xold.reshape(nelx*nely,1),np.inf)
 		# Plot to screen
 		im.set_array(-xPhys.reshape((nelx,nely)).T)
+
 		# try to visualize u-matrix (deformation?)
 		#im.set_array(u[::2].reshape((nelx+1,nely+1)).T)
 		fig.canvas.draw()
+
+		fig.savefig('anim/{0}.png'.format(loop))
 		# Write iteration history to screen (req. Python 2.6 or newer)
 		print("it.: {0} , obj.: {1:.3f} Vol.: {2:.3f}, ch.: {3:.3f}".format(\
 					loop,obj,(g+volfrac*nelx*nely)/(nelx*nely),change))
 	# Make sure the plot stays and that the shell remains
 	plt.show()
 	raw_input("Press any key...")
+
+
 #element stiffness matrix
 def lk():
 	E=1.0
@@ -202,6 +209,8 @@ def lk():
 	[k[6], k[3], k[4], k[1], k[2], k[7], k[0], k[5]],
 	[k[7], k[2], k[1], k[4], k[3], k[6], k[5], k[0]] ]);
 	return (KE)
+
+
 # Optimality criterion
 def oc(nelx,nely,x,volfrac,dc,dv,g):
 	l1=0
@@ -218,20 +227,22 @@ def oc(nelx,nely,x,volfrac,dc,dv,g):
 		else:
 			l2=lmid
 	return (xnew,gt)
+
+
 # The real main driver
 if __name__ == "__main__":
 	# Default input parameters
-	volfrac=0.4
+	volfrac=0.15
 	rmin=5.4 # lower number: more branching (initial: 5.4, try 2.0 or 1.5) proposal: 0.04 * nelx
 	penal=3.0 # ensure black and white solution
 	ft=1 # ft==0 -> sensitivity filtering, ft==1 -> density filtering
 	chg=0.1
-	folder = 'mbb'
+	folder = 'canoe2' #'mbb'
 	import sys
-	if len(sys.argv)>1: volfrac=float(sys.argv[1])
-	if len(sys.argv)>2: rmin   =float(sys.argv[2])
-	if len(sys.argv)>3: chg   =float(sys.argv[3])
-	if len(sys.argv)>4: folder  =str(sys.argv[4])
-	if len(sys.argv)>5: penal  =float(sys.argv[5])
-	if len(sys.argv)>6: ft     =int(sys.argv[6])
+	if len(sys.argv)>1: volfrac= float(sys.argv[1])
+	if len(sys.argv)>2: rmin   = float(sys.argv[2])
+	if len(sys.argv)>3: chg    = float(sys.argv[3])
+	if len(sys.argv)>4: folder = str(sys.argv[4])
+	if len(sys.argv)>5: penal  = float(sys.argv[5])
+	if len(sys.argv)>6: ft     = int(sys.argv[6])
 	main(volfrac,penal,rmin,ft,chg,folder)
